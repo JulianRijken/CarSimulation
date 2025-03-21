@@ -43,8 +43,8 @@ func _physics_process(delta: float) -> void:
 	if wheelPoints.is_empty() or wheelPoints.size() != 4:
 		return
 		
-	#wheelPoints.sort_custom(func(a, b): return a.y > b.y)
 	
+	var lowestWheel = wheelPoints[lowestWheelIndex]
 	var oppositeWheel = wheelPoints[(lowestWheelIndex + 2)%4]
 	var sideWheel1 = wheelPoints[(lowestWheelIndex + 1)%4]
 	var sideWheel2 = wheelPoints[(lowestWheelIndex + 3)%4]
@@ -55,6 +55,14 @@ func _physics_process(delta: float) -> void:
 	var dir2n = (sideWheel2 - oppositeWheel).normalized()
 	
 	var foundWheel = oppositeWheel + dir1 + dir2;
+	DebugDraw3D.draw_sphere(foundWheel,0.03,Color.PALE_VIOLET_RED)
+	
+	var diff = max(lowestWheel.y - foundWheel.y,0)
+	foundWheel.y += diff
+	
+	var highestSide = sideWheel1 if sideWheel1.y > sideWheel2.y else sideWheel2
+	highestSide.y += diff;
+	DebugDraw3D.draw_sphere(highestSide,0.05,Color.AQUA)
 	
 	var up = dir1n.cross(dir2n)
 	DebugDraw3D.draw_arrow(global_position,global_position + up,Color.RED,0.1)
@@ -69,25 +77,3 @@ func _physics_process(delta: float) -> void:
 	DebugDraw3D.draw_sphere(sideWheel1,0.05,Color.REBECCA_PURPLE)
 	DebugDraw3D.draw_sphere(sideWheel2,0.05,Color.BLUE_VIOLET)
 	DebugDraw3D.draw_sphere(foundWheel,0.05,Color.RED)
-	
-	
-			
-	#var highestWheel = wheelPoints[highestWheelIndex]
-	#var sideWheel1 = wheelPoints[(highestWheelIndex + 1)%4]
-	#var sideWheel2 = wheelPoints[(highestWheelIndex + 3)%4]
-	#
-	#var averageHeight = highestWheel.y - oppositeWheel.y
-		#
-	#DebugDraw3D.draw_sphere(highestWheel,0.05,Color.GREEN)
-	#DebugDraw3D.draw_sphere(oppositeWheel,0.05,Color.RED)
-	#DebugDraw3D.draw_sphere(sideWheel1,0.05,Color.DEEP_SKY_BLUE)
-	#DebugDraw3D.draw_sphere(sideWheel2,0.05,Color.MIDNIGHT_BLUE)
-	#
-	#DebugDraw3D.draw_line(highestWheel,oppositeWheel,Color.DARK_RED)
-	
-	
-	
-	
-	#var sideWheel1
-	#var sideWHeel2	
-	
