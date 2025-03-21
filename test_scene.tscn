@@ -1,0 +1,105 @@
+[gd_scene load_steps=9 format=3 uid="uid://ya7r4gnoiawc"]
+
+[ext_resource type="PackedScene" uid="uid://c6q3vmsfanel8" path="res://vehicle.tscn" id="1_wha1f"]
+[ext_resource type="Material" uid="uid://bx6qeabdhq2s" path="res://addons/kenney_prototype_tools/materials/dark/material_01.tres" id="2_bvjrq"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ia1lp"]
+size = Vector3(6, 1, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ia1lp"]
+
+[sub_resource type="WorldBoundaryShape3D" id="WorldBoundaryShape3D_ia1lp"]
+
+[sub_resource type="QuadMesh" id="QuadMesh_1o02b"]
+size = Vector2(20, 20)
+orientation = 1
+
+[sub_resource type="SphereMesh" id="SphereMesh_ia1lp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_sasra"]
+
+[node name="Node3D" type="Node3D"]
+
+[node name="StaticBody3D3" type="StaticBody3D" parent="."]
+transform = Transform3D(-0.0559259, 0, -0.998435, 0, 1, 0, 0.998435, 0, -0.0559259, -1.74499, 0.731507, 2.32514)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D3"]
+shape = SubResource("BoxShape3D_ia1lp")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D3"]
+transform = Transform3D(6, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("2_bvjrq")
+mesh = SubResource("BoxMesh_ia1lp")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D5" type="StaticBody3D" parent="."]
+transform = Transform3D(0.967122, 0, -0.254315, 0, 1, 0, 0.254315, 0, 0.967122, -1.74499, 0.218538, 1.18091)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D5"]
+shape = SubResource("BoxShape3D_ia1lp")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D5"]
+transform = Transform3D(6, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("2_bvjrq")
+mesh = SubResource("BoxMesh_ia1lp")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D6" type="StaticBody3D" parent="."]
+transform = Transform3D(0.981178, 0, 0.193104, 0, 1, 0, -0.193104, 0, 0.981178, -2.64671, 0.540338, 3.89992)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D6"]
+shape = SubResource("BoxShape3D_ia1lp")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D6"]
+transform = Transform3D(6, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("2_bvjrq")
+mesh = SubResource("BoxMesh_ia1lp")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D4" type="StaticBody3D" parent="."]
+transform = Transform3D(0.989026, 0, -0.14774, 0, 1, 0, 0.14774, 0, 0.989026, 3.73664, -0.288966, 1.8358)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D4"]
+shape = SubResource("BoxShape3D_ia1lp")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D4"]
+transform = Transform3D(6, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("2_bvjrq")
+mesh = SubResource("BoxMesh_ia1lp")
+skeleton = NodePath("../..")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00531387, -0.0368748, 0.0104275)
+shape = SubResource("WorldBoundaryShape3D_ia1lp")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00531387, -0.0368748, 0.0104275)
+material_override = ExtResource("2_bvjrq")
+mesh = SubResource("QuadMesh_1o02b")
+skeleton = NodePath("../..")
+
+[node name="Vehicle" parent="." instance=ExtResource("1_wha1f")]
+transform = Transform3D(0.83344, 0.000735149, -0.55261, -0.00113783, 0.999999, -0.000385744, 0.55261, 0.000950273, 0.83344, 0.217111, 2.48083, 1.44915)
+
+[node name="Vehicle2" parent="." instance=ExtResource("1_wha1f")]
+transform = Transform3D(0.798417, 0.248302, -0.548523, -0.251569, 0.965249, 0.070765, 0.547032, 0.081491, 0.833136, 0.240542, 0.653923, 1.4663)
+
+[node name="Vehicle3" parent="." instance=ExtResource("1_wha1f")]
+transform = Transform3D(0.506004, 0, -0.862532, 0, 0.999999, 0, 0.862532, 0, 0.506003, -3.56034, 1.84516, 2.35382)
+
+[node name="Vehicle4" parent="." instance=ExtResource("1_wha1f")]
+transform = Transform3D(-0.59694, 0.0111226, 0.802209, 0.00388373, 0.999932, -0.0109741, -0.802277, -0.00343531, -0.596943, -3.10946, 2.06854, -5.18117)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -5.5, 3, 3.5)
+
+[node name="StaticBody3D2" type="StaticBody3D" parent="."]
+transform = Transform3D(8.06413, 0, 0, 0, 8.06413, 0, 0, 0, 8.06413, 0, -2.75378, -4.20982)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D2"]
+mesh = SubResource("SphereMesh_ia1lp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D2"]
+shape = SubResource("SphereShape3D_sasra")

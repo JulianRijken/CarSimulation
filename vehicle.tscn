@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://c6q3vmsfanel8"]
+
+[ext_resource type="Script" uid="uid://d36iv4uut3woa" path="res://vehicle.gd" id="1_7s7cs"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7hp20"]
+size = Vector3(3, 0.06, 1.5)
+
+[node name="Vehicle" type="MeshInstance3D" node_paths=PackedStringArray("wheelMarkers")]
+mesh = SubResource("BoxMesh_7hp20")
+script = ExtResource("1_7s7cs")
+wheelMarkers = [NodePath("Wheel"), NodePath("Wheel2"), NodePath("Wheel3"), NodePath("Wheel4")]
+
+[node name="Wheel" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, -0.75)
+
+[node name="Wheel2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, -0.75)
+
+[node name="Wheel3" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 0, 0.75)
+
+[node name="Wheel4" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 0, 0.75)

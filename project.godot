@@ -11,5 +11,6 @@ config_version=5
 [application]
 
 config/name="CarSimulation"
-config/features=PackedStringArray("4.3", "Forward Plus")
+run/main_scene="uid://ya7r4gnoiawc"
+config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
