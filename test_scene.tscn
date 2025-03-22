@@ -33,6 +33,18 @@ material_override = ExtResource("2_bvjrq")
 mesh = SubResource("BoxMesh_ia1lp")
 skeleton = NodePath("../..")
 
+[node name="StaticBody3D17" type="StaticBody3D" parent="."]
+transform = Transform3D(-0.0559259, 0, -0.998435, 0, 1, 0, 0.998435, 0, -0.0559259, -1.74499, 1.96041, -5.4276)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D17"]
+shape = SubResource("BoxShape3D_ia1lp")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="StaticBody3D17"]
+transform = Transform3D(6, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+material_override = ExtResource("2_bvjrq")
+mesh = SubResource("BoxMesh_ia1lp")
+skeleton = NodePath("../..")
+
 [node name="StaticBody3D5" type="StaticBody3D" parent="."]
 transform = Transform3D(0.967122, 0, -0.254315, 0, 1, 0, 0.254315, 0, 0.967122, -1.74499, 0.218538, 1.18091)
 
@@ -82,22 +94,25 @@ mesh = SubResource("QuadMesh_1o02b")
 skeleton = NodePath("../..")
 
 [node name="Vehicle" parent="." instance=ExtResource("1_wha1f")]
-transform = Transform3D(0.600417, 0.000374698, -0.799687, -0.00113783, 0.999999, -0.000385744, 0.799687, 0.00114152, 0.600417, 4.28294, 1.20731, 3.73812)
+transform = Transform3D(0.246995, -9.27557e-05, -0.969017, -0.00113783, 0.999999, -0.000385744, 0.969017, 0.00119786, 0.246995, 4.28294, 1.20731, 3.73812)
 
 [node name="Vehicle5" parent="." instance=ExtResource("1_wha1f")]
-transform = Transform3D(-0.573952, -0.000968944, -0.818889, -0.00113783, 0.999999, -0.000385744, 0.818889, 0.000710359, -0.573952, 7.61257, 1.20731, 4.23123)
+transform = Transform3D(-0.538992, 0, -0.842311, 0, 1, 0, 0.842312, 0, -0.538991, 7.61257, 1.20731, 4.23123)
 
 [node name="Vehicle2" parent="." instance=ExtResource("1_wha1f")]
-transform = Transform3D(0.820382, 0, -0.571817, 0, 1, 0, 0.571817, 0, 0.820382, 1.11824, 1.58128, 3.24999)
+transform = Transform3D(0.878042, 0, -0.478585, 0, 1, 0, 0.478585, 0, 0.878042, 1.11824, 1.58128, 3.24999)
 
 [node name="Vehicle3" parent="." instance=ExtResource("1_wha1f")]
 transform = Transform3D(0.506004, 0, -0.862532, 0, 0.999999, 0, 0.862532, 0, 0.506003, -3.56034, 1.84516, 2.35382)
 
 [node name="Vehicle6" parent="." instance=ExtResource("1_wha1f")]
-transform = Transform3D(-0.738114, 0, -0.674676, 0, 1, 0, 0.674676, 0, -0.738114, -10.8312, 1.84516, -5.5495)
+transform = Transform3D(0.769901, 0, 0.638163, 0, 1, 0, -0.638163, 0, 0.769901, -10.8312, 1.84516, -5.5495)
 
 [node name="Vehicle4" parent="." instance=ExtResource("1_wha1f")]
-transform = Transform3D(-0.822383, -0.00304975, -0.568927, 0.00388373, 0.999931, -0.0109741, 0.568922, -0.0112345, -0.822316, 3.68702, 2.0615, -4.07179)
+transform = Transform3D(0.997304, -0.00467731, -0.0732376, 0.00388373, 0.999931, -0.0109741, 0.0732836, 0.0106601, 0.997255, 3.68729, 1.2682, -4.0697)
+
+[node name="Vehicle7" parent="." instance=ExtResource("1_wha1f")]
+transform = Transform3D(-0.713999, -0.00491065, -0.70013, 0.00388373, 0.999931, -0.0109741, 0.700137, -0.0105546, -0.713932, -0.621793, 3.19036, -4.0697)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -5.5, 3, 3.5)
@@ -120,6 +135,16 @@ material_override = ExtResource("3_sasra")
 mesh = SubResource("SphereMesh_ia1lp")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D8"]
+shape = SubResource("SphereShape3D_sasra")
+
+[node name="StaticBody3D16" type="StaticBody3D" parent="."]
+transform = Transform3D(8.06413, 0, 0, 0, 8.06413, 0, 0, 0, 8.06413, 2.93343, -3.34508, 0.266261)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="StaticBody3D16"]
+material_override = ExtResource("3_sasra")
+mesh = SubResource("SphereMesh_ia1lp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="StaticBody3D16"]
 shape = SubResource("SphereShape3D_sasra")
 
 [node name="StaticBody3D9" type="StaticBody3D" parent="."]
