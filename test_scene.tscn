@@ -1,8 +1,9 @@
-[gd_scene load_steps=10 format=3 uid="uid://ya7r4gnoiawc"]
+[gd_scene load_steps=11 format=3 uid="uid://ya7r4gnoiawc"]
 
 [ext_resource type="PackedScene" uid="uid://c6q3vmsfanel8" path="res://vehicle.tscn" id="1_wha1f"]
 [ext_resource type="Material" uid="uid://bx6qeabdhq2s" path="res://addons/kenney_prototype_tools/materials/dark/material_01.tres" id="2_bvjrq"]
 [ext_resource type="Material" uid="uid://dxlnifhgft6h5" path="res://addons/kenney_prototype_tools/materials/green/material_01.tres" id="3_sasra"]
+[ext_resource type="PackedScene" uid="uid://bvjbs7c8iw6fy" path="res://low_poly_humvee_vehicle.glb" id="4_coq8p"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ia1lp"]
 size = Vector3(6, 1, 1)
@@ -94,25 +95,25 @@ mesh = SubResource("QuadMesh_1o02b")
 skeleton = NodePath("../..")
 
 [node name="Vehicle" parent="." instance=ExtResource("1_wha1f")]
-transform = Transform3D(0.246995, -9.27557e-05, -0.969017, -0.00113783, 0.999999, -0.000385744, 0.969017, 0.00119786, 0.246995, 4.28294, 1.20731, 3.73812)
+transform = Transform3D(0.402999, 0.000105558, -0.915077, -0.00113783, 0.999999, -0.000385744, 0.915076, 0.0011967, 0.402996, 4.28294, 1.20731, 3.73812)
 
 [node name="Vehicle5" parent="." instance=ExtResource("1_wha1f")]
-transform = Transform3D(-0.538992, 0, -0.842311, 0, 1, 0, 0.842312, 0, -0.538991, 7.61257, 1.20731, 4.23123)
+transform = Transform3D(-0.393033, 0, -0.919401, 0, 1, 0, 0.919401, 0, -0.393032, 7.61257, 1.20731, 4.23123)
 
 [node name="Vehicle2" parent="." instance=ExtResource("1_wha1f")]
-transform = Transform3D(0.878042, 0, -0.478585, 0, 1, 0, 0.478585, 0, 0.878042, 1.11824, 1.58128, 3.24999)
+transform = Transform3D(0.944703, 0, -0.32758, 0, 1, 0, 0.32758, 0, 0.944703, 1.11824, 1.58128, 3.24999)
 
 [node name="Vehicle3" parent="." instance=ExtResource("1_wha1f")]
-transform = Transform3D(0.506004, 0, -0.862532, 0, 0.999999, 0, 0.862532, 0, 0.506003, -3.56034, 1.84516, 2.35382)
+transform = Transform3D(0.640932, 0, -0.76745, 0, 0.999999, 0, 0.767449, 0, 0.640931, -3.56034, 1.84516, 2.35382)
 
 [node name="Vehicle6" parent="." instance=ExtResource("1_wha1f")]
-transform = Transform3D(0.769901, 0, 0.638163, 0, 1, 0, -0.638163, 0, 0.769901, -10.8312, 1.84516, -5.5495)
+transform = Transform3D(0.0458841, 0, 0.998833, 0, 1, 0, -0.998833, 0, 0.0458841, -10.7891, 1.98679, -5.45585)
 
 [node name="Vehicle4" parent="." instance=ExtResource("1_wha1f")]
-transform = Transform3D(0.997304, -0.00467731, -0.0732376, 0.00388373, 0.999931, -0.0109741, 0.0732836, 0.0106601, 0.997255, 3.68729, 1.2682, -4.0697)
+transform = Transform3D(0.963904, -0.0066602, -0.265739, 0.00388373, 0.999931, -0.0109741, 0.265792, 0.00954593, 0.963868, 3.68729, 1.2682, -4.0697)
 
 [node name="Vehicle7" parent="." instance=ExtResource("1_wha1f")]
-transform = Transform3D(-0.713999, -0.00491065, -0.70013, 0.00388373, 0.999931, -0.0109741, 0.700137, -0.0105546, -0.713932, -0.621793, 3.19036, -4.0697)
+transform = Transform3D(0.213331, -0.0115487, -0.976796, 0.00388373, 0.999931, -0.0109741, 0.976857, -0.0014525, 0.213361, -0.621793, 3.19036, -4.0697)
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.258819, 0, -0.965926, 0, 1, 0, 0.965926, 0, 0.258819, -5.5, 3, 3.5)
@@ -224,3 +225,6 @@ Wheel have suspention so they sometimes actually do need to be a bit in the grou
 also, it should always lean back as the car is heavyer at the back not sure tho lol)
 
 Still make the car balance between the two when possible, like look at the large hills"
+
+[node name="Sketchfab_Scene" parent="." instance=ExtResource("4_coq8p")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -8.55946, -0.02878, 6.64856)

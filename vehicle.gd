@@ -8,6 +8,8 @@ func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
+	rotate_y(delta * 0.4)
+	
 	var a = DebugDraw3D.new_scoped_config().set_thickness(0.015)
 	
 	var castDistance = 10.0;
@@ -43,73 +45,39 @@ func _physics_process(delta: float) -> void:
 		
 	if wheelPoints.is_empty() or wheelPoints.size() != 4:
 		return
-		
 	
-	var lowestWheel: Vector3 = wheelPoints[lowestWheelIndex]
-	var oppositeWheel: Vector3 = wheelPoints[(lowestWheelIndex + 2)%4]
+	var highestWheel: Vector3 = wheelPoints[highestWheelIndex]
+	var oppositeWheel: Vector3 = wheelPoints[(highestWheelIndex + 2)%4]
+	var closeWheel = wheelPoints[(highestWheelIndex + 1)%4]
+	var farWheel = wheelPoints[(highestWheelIndex + 3)%4]
 	
-	var closeSide = wheelPoints[(lowestWheelIndex + 1)%4]
-	var farSide = wheelPoints[(lowestWheelIndex + 3)%4]
+	if (highestWheel - closeWheel).length_squared() > (highestWheel - farWheel).length_squared():
+		var oldcloseWheel = closeWheel
+		closeWheel = farWheel
+		farWheel = oldcloseWheel
 	
-	if (oppositeWheel - closeSide).length_squared() > (oppositeWheel - farSide).length_squared():
-		var oldCloseSide = closeSide
-		closeSide = farSide
-		farSide = oldCloseSide
-	
-	DebugDraw3D.draw_sphere(oppositeWheel,0.05,Color.LIME_GREEN)
-	DebugDraw3D.draw_sphere(lowestWheel,0.05,Color.ORANGE_RED)
-	
-	#DebugDraw3D.draw_sphere(closeSide,0.05,Color.YELLOW)
-	#DebugDraw3D.draw_sphere(farSide,0.05,Color.ROYAL_BLUE)
+	DebugDraw3D.draw_sphere(highestWheel,0.05,Color.LIME_GREEN)
+	DebugDraw3D.draw_sphere(oppositeWheel,0.05,Color.ORANGE_RED)
 
-	var closeDirection = (closeSide - oppositeWheel)
-	var farDirection = (farSide - oppositeWheel)
-	
-	var foundWheel = oppositeWheel + closeDirection + farDirection
+	var closeDirection = (closeWheel - highestWheel)
+	var farDirection = (farWheel - highestWheel)
+	var connectedOppositeWheel = highestWheel + closeDirection + farDirection
 	
 
-	var diff = foundWheel - lowestWheel
 	
-	# Needs to up car wheel
-	# then we move close point up
-	if diff.y < 0:
-		var liftedCloseSide = closeSide - diff
-		#DebugDraw3D.clear_all()
-		DebugDraw3D.draw_sphere(foundWheel,0.05,Color.PALE_VIOLET_RED)
-		DebugDraw3D.draw_sphere(liftedCloseSide,0.05,Color.PURPLE)
+	
+	var diff = connectedOppositeWheel - oppositeWheel 
+	
+	
+	if diff.y < 0: # If the connected opposite wheel is in the ground we lift the close and far wheel equaly
+		closeWheel= closeWheel - diff * 0.5
+		farWheel = farWheel - diff * 0.5
+	else: # When the opposite wheel is not in the ground we can simply connect it
+		oppositeWheel = connectedOppositeWheel
 		
-		DebugDraw3D.draw_line(oppositeWheel, liftedCloseSide,Color.YELLOW)
-		DebugDraw3D.draw_line(oppositeWheel, farSide,Color.YELLOW)
-		DebugDraw3D.draw_line(lowestWheel, liftedCloseSide,Color.YELLOW)
-		DebugDraw3D.draw_line(lowestWheel, farSide,Color.YELLOW)
-	else:
-		DebugDraw3D.draw_arrow(oppositeWheel,oppositeWheel + closeDirection,Color.YELLOW,0.1,true)
-		DebugDraw3D.draw_arrow(oppositeWheel,oppositeWheel + farDirection,Color.ROYAL_BLUE,0.1,true)
-		DebugDraw3D.draw_arrow(oppositeWheel + closeDirection,foundWheel,Color.GRAY,0.1,true)
-		DebugDraw3D.draw_arrow(oppositeWheel + farDirection,foundWheel,Color.GRAY,0.1,true)
-	
+	DebugDraw3D.draw_line(highestWheel, closeWheel,Color.YELLOW)
+	DebugDraw3D.draw_line(highestWheel, farWheel,Color.YELLOW)
+	DebugDraw3D.draw_line(oppositeWheel, closeWheel,Color.YELLOW)
+	DebugDraw3D.draw_line(oppositeWheel, farWheel,Color.YELLOW)
 		
 		
-	
-	
-	
-	#
-	#foundWheel.y += diff
-	#
-	#var highestSide = sideWheel1 if sideWheel1.y > sideWheel2.y else sideWheel2
-	#highestSide.y += diff;
-	#DebugDraw3D.draw_sphere(highestSide,0.05,Color.AQUA)
-	#
-	#var up = dir1n.cross(dir2n)
-	#DebugDraw3D.draw_arrow(global_position,global_position + up,Color.RED,0.1)
-	#
-	#DebugDraw3D.draw_line(oppositeWheel,sideWheel1,Color.MEDIUM_SLATE_BLUE)
-	#DebugDraw3D.draw_line(oppositeWheel,sideWheel2,Color.MEDIUM_SLATE_BLUE)
-	#DebugDraw3D.draw_line(sideWheel1,foundWheel,Color.CORAL)
-	#DebugDraw3D.draw_line(sideWheel2,foundWheel,Color.CORAL)
-	
-	
-	#DebugDraw3D.draw_sphere(oppositeWheel,0.05,Color.GREEN)
-	#DebugDraw3D.draw_sphere(sideWheel1,0.05,Color.REBECCA_PURPLE)
-	#DebugDraw3D.draw_sphere(sideWheel2,0.05,Color.BLUE_VIOLET)
-	#DebugDraw3D.draw_sphere(foundWheel,0.05,Color.RED)
