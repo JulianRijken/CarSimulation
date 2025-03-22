@@ -2,13 +2,24 @@
 extends MeshInstance3D
 
 @export var wheelMarkers: Array[Marker3D]
+@export var vehicle: Node3D
+@export var snap: bool
 
+var smoothRotation: Quaternion
+var smoothPosition: Vector3
 
 func _ready() -> void:
 	pass
 
 func _physics_process(delta: float) -> void:
-	rotate_y(delta * 0.4)
+	
+	
+	if snap == false:
+		vehicle.transform = Transform3D.IDENTITY
+		return
+		
+	rotate_y(delta * 0.5)
+		
 	
 	var a = DebugDraw3D.new_scoped_config().set_thickness(0.015)
 	
@@ -48,8 +59,8 @@ func _physics_process(delta: float) -> void:
 	
 	var highestWheel: Vector3 = wheelPoints[highestWheelIndex]
 	var oppositeWheel: Vector3 = wheelPoints[(highestWheelIndex + 2)%4]
-	var closeWheel = wheelPoints[(highestWheelIndex + 1)%4]
-	var farWheel = wheelPoints[(highestWheelIndex + 3)%4]
+	var closeWheel: Vector3 = wheelPoints[(highestWheelIndex + 1)%4]
+	var farWheel: Vector3 = wheelPoints[(highestWheelIndex + 3)%4]
 	
 	if (highestWheel - closeWheel).length_squared() > (highestWheel - farWheel).length_squared():
 		var oldcloseWheel = closeWheel
@@ -68,16 +79,87 @@ func _physics_process(delta: float) -> void:
 	
 	var diff = connectedOppositeWheel - oppositeWheel 
 	
-	
 	if diff.y < 0: # If the connected opposite wheel is in the ground we lift the close and far wheel equaly
 		closeWheel= closeWheel - diff * 0.5
 		farWheel = farWheel - diff * 0.5
 	else: # When the opposite wheel is not in the ground we can simply connect it
 		oppositeWheel = connectedOppositeWheel
 		
+	
 	DebugDraw3D.draw_line(highestWheel, closeWheel,Color.YELLOW)
 	DebugDraw3D.draw_line(highestWheel, farWheel,Color.YELLOW)
 	DebugDraw3D.draw_line(oppositeWheel, closeWheel,Color.YELLOW)
 	DebugDraw3D.draw_line(oppositeWheel, farWheel,Color.YELLOW)
-		
-		
+	
+	
+	var center: Vector3 = (highestWheel + oppositeWheel + farWheel + closeWheel) / 4.0
+	DebugDraw3D.draw_sphere(center, 0.1,Color.YELLOW)
+
+
+	
+	var finalWheelPoints: Array
+	finalWheelPoints.push_back(highestWheel)
+	finalWheelPoints.push_back(oppositeWheel)
+	finalWheelPoints.push_back(closeWheel)
+	finalWheelPoints.push_back(farWheel)
+	
+	
+	var backRightWheel: Vector3
+	var frontRightWheel: Vector3
+	var backLeftWheel: Vector3
+	for wheel in finalWheelPoints:
+		if to_local(wheel).x < 0 and to_local(wheel).z < 0:
+			backRightWheel = wheel
+		if to_local(wheel).x < 0 and to_local(wheel).z > 0:
+			frontRightWheel = wheel
+		if to_local(wheel).x > 0 and to_local(wheel).z < 0:
+			backLeftWheel = wheel
+	
+	DebugDraw3D.draw_sphere(backRightWheel,0.2,Color.GREEN)
+	DebugDraw3D.draw_sphere(backLeftWheel,0.2,Color.RED)
+	DebugDraw3D.draw_sphere(frontRightWheel,0.2,Color.BLUE)
+	
+	var forward = (frontRightWheel - backRightWheel).normalized()
+	var left = (backLeftWheel - backRightWheel).normalized()
+	var up = forward.cross(left)
+	
+	DebugDraw3D.draw_arrow(backRightWheel,backRightWheel + forward, Color.BLUE, 0.2,true)
+	DebugDraw3D.draw_arrow(backRightWheel,backRightWheel + left, Color.RED, 0.2,true)
+	DebugDraw3D.draw_arrow(backRightWheel,backRightWheel + up, Color.GREEN, 0.2,true)
+	
+	var targetBasis = Basis()
+	targetBasis.x = left
+	targetBasis.y = up
+	targetBasis.z = forward
+	targetBasis = targetBasis.orthonormalized()
+	
+	var interpSpeed = delta * 20
+	
+	smoothRotation = smoothRotation.slerp(targetBasis.get_rotation_quaternion(),interpSpeed)
+	smoothPosition = smoothPosition.lerp(center,interpSpeed)
+	#smoothPosition.x = center.x
+	#smoothPosition.z = center.z
+	
+	vehicle.transform = Transform3D.IDENTITY
+	vehicle.global_rotation = smoothRotation.get_euler()
+	vehicle.global_position = smoothPosition
+	
+	
+	#var dir1 = (farWheel - highestWheel).normalized()
+	#var dir2 = (closeWheel - highestWheel).normalized()
+	#var dirUp: Vector3 = dir1.cross(dir2) 
+	#if dirUp.y <= 0:
+		#dirUp = dir2.cross(dir1) 
+	#
+	#DebugDraw3D.draw_arrow(center, center + dirUp,Color.YELLOW,0.1,true)
+	#vehicle.global_position = center
+	
+	
+
+	#var targetBasis: Basis = Basis() 
+	#targetBasis.y = dirUp
+	#targetBasis.x = -vehicle.global_basis.z.cross(dirUp)
+	#targetBasis = targetBasis.orthonormalized()
+	#
+	#vehicle.global_basis = targetBasis
+	#vehicle.global_position = center
