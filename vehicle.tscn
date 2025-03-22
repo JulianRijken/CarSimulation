@@ -14,6 +14,8 @@ mesh = SubResource("BoxMesh_7hp20")
 script = ExtResource("1_7s7cs")
 wheelMarkers = [NodePath("Wheel"), NodePath("Wheel2"), NodePath("Wheel3"), NodePath("Wheel4")]
 vehicle = NodePath("Car")
+slerp = true
+rotate = true
 
 [node name="Wheel" type="Marker3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.931201, 0, -1.7236)

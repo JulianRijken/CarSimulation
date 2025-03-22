@@ -4,6 +4,9 @@ extends MeshInstance3D
 @export var wheelMarkers: Array[Marker3D]
 @export var vehicle: Node3D
 @export var snap: bool
+@export var slerp: bool
+@export var rotate: bool
+@export var heightOffset: float
 
 var smoothRotation: Quaternion
 var smoothPosition: Vector3
@@ -18,7 +21,8 @@ func _physics_process(delta: float) -> void:
 		vehicle.transform = Transform3D.IDENTITY
 		return
 		
-	rotate_y(delta * 0.5)
+	if rotate:
+		rotate_y(delta * 0.5)
 		
 	
 	var a = DebugDraw3D.new_scoped_config().set_thickness(0.015)
@@ -119,9 +123,11 @@ func _physics_process(delta: float) -> void:
 	DebugDraw3D.draw_sphere(backLeftWheel,0.2,Color.RED)
 	DebugDraw3D.draw_sphere(frontRightWheel,0.2,Color.BLUE)
 	
-	var forward = (frontRightWheel - backRightWheel).normalized()
-	var left = (backLeftWheel - backRightWheel).normalized()
-	var up = forward.cross(left)
+	var forward: Vector3 = (frontRightWheel - backRightWheel).normalized()
+	var left: Vector3 = (backLeftWheel - backRightWheel).normalized()
+	var up: Vector3 = forward.cross(left)
+	
+	center += up * heightOffset
 	
 	DebugDraw3D.draw_arrow(backRightWheel,backRightWheel + forward, Color.BLUE, 0.2,true)
 	DebugDraw3D.draw_arrow(backRightWheel,backRightWheel + left, Color.RED, 0.2,true)
@@ -135,11 +141,13 @@ func _physics_process(delta: float) -> void:
 	
 	var interpSpeed = delta * 20
 	
-	smoothRotation = smoothRotation.slerp(targetBasis.get_rotation_quaternion(),interpSpeed)
-	smoothPosition = smoothPosition.lerp(center,interpSpeed)
-	#smoothPosition.x = center.x
-	#smoothPosition.z = center.z
-	
+	if slerp:
+		smoothRotation = smoothRotation.slerp(targetBasis.get_rotation_quaternion(),interpSpeed)
+		smoothPosition = smoothPosition.lerp(center,interpSpeed)
+	else:
+		smoothRotation = targetBasis.get_rotation_quaternion()
+		smoothPosition = center
+		
 	vehicle.transform = Transform3D.IDENTITY
 	vehicle.global_rotation = smoothRotation.get_euler()
 	vehicle.global_position = smoothPosition
