@@ -14,3 +14,7 @@ config/name="CarSimulation"
 run/main_scene="uid://ya7r4gnoiawc"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
+
+[physics]
+
+3d/physics_engine="Jolt Physics"

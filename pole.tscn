@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://dkexdf82303am"]
+
+[ext_resource type="Script" uid="uid://dkstqqajtu33m" path="res://pole.gd" id="1_m55ix"]
+[ext_resource type="Material" uid="uid://ccgkll0d0n38v" path="res://addons/kenney_prototype_tools/materials/orange/material_09.tres" id="2_6w55b"]
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_coq8p"]
+
+[sub_resource type="CylinderShape3D" id="CylinderShape3D_2nij2"]
+
+[node name="StaticBody3D" type="StaticBody3D"]
+transform = Transform3D(0.3, 0, 0, 0, 1.023, 0, 0, 0, 0.3, 0, 0, 0)
+script = ExtResource("1_m55ix")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+material_override = ExtResource("2_6w55b")
+mesh = SubResource("CylinderMesh_coq8p")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CylinderShape3D_2nij2")

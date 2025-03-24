@@ -16,7 +16,6 @@ func _ready() -> void:
 
 func _physics_process(delta: float) -> void:
 	
-	
 	if snap == false:
 		vehicle.transform = Transform3D.IDENTITY
 		return
@@ -24,15 +23,14 @@ func _physics_process(delta: float) -> void:
 	if rotate:
 		rotate_y(delta * 0.5)
 		
-	
 	var a = DebugDraw3D.new_scoped_config().set_thickness(0.015)
 	
 	var castDistance = 10.0;
 	
+	
 	var wheelPoints: Array[Vector3]
 	var highestWheelIndex = 0
 	var lowestWheelIndex = 0
-	
 	var wheelIndex = 0
 	for wheelMarker in wheelMarkers:
 		var wheelPosition = wheelMarker.global_position
@@ -78,9 +76,6 @@ func _physics_process(delta: float) -> void:
 	var farDirection = (farWheel - highestWheel)
 	var connectedOppositeWheel = highestWheel + closeDirection + farDirection
 	
-
-	
-	
 	var diff = connectedOppositeWheel - oppositeWheel 
 	
 	if diff.y < 0: # If the connected opposite wheel is in the ground we lift the close and far wheel equaly
@@ -95,11 +90,9 @@ func _physics_process(delta: float) -> void:
 	DebugDraw3D.draw_line(oppositeWheel, closeWheel,Color.YELLOW)
 	DebugDraw3D.draw_line(oppositeWheel, farWheel,Color.YELLOW)
 	
-	
+
 	var center: Vector3 = (highestWheel + oppositeWheel + farWheel + closeWheel) / 4.0
 	DebugDraw3D.draw_sphere(center, 0.1,Color.YELLOW)
-
-
 	
 	var finalWheelPoints: Array
 	finalWheelPoints.push_back(highestWheel)
@@ -151,23 +144,3 @@ func _physics_process(delta: float) -> void:
 	vehicle.transform = Transform3D.IDENTITY
 	vehicle.global_rotation = smoothRotation.get_euler()
 	vehicle.global_position = smoothPosition
-	
-	
-	#var dir1 = (farWheel - highestWheel).normalized()
-	#var dir2 = (closeWheel - highestWheel).normalized()
-	#var dirUp: Vector3 = dir1.cross(dir2) 
-	#if dirUp.y <= 0:
-		#dirUp = dir2.cross(dir1) 
-	#
-	#DebugDraw3D.draw_arrow(center, center + dirUp,Color.YELLOW,0.1,true)
-	#vehicle.global_position = center
-	
-	
-
-	#var targetBasis: Basis = Basis() 
-	#targetBasis.y = dirUp
-	#targetBasis.x = -vehicle.global_basis.z.cross(dirUp)
-	#targetBasis = targetBasis.orthonormalized()
-	#
-	#vehicle.global_basis = targetBasis
-	#vehicle.global_position = center

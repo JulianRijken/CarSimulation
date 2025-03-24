@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://durxfld0ao4wa"]
+
+[ext_resource type="Script" uid="uid://d36iv4uut3woa" path="res://vehicle.gd" id="1_cs5r4"]
+[ext_resource type="PackedScene" uid="uid://bvjbs7c8iw6fy" path="res://low_poly_humvee_vehicle.glb" id="2_vtwx8"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_7hp20"]
+size = Vector3(2.2, 0.1, 3.7)
+
+[node name="Vehicle" type="MeshInstance3D" node_paths=PackedStringArray("wheelMarkers", "vehicle")]
+transparency = 0.89
+cast_shadow = 0
+mesh = SubResource("BoxMesh_7hp20")
+script = ExtResource("1_cs5r4")
+wheelMarkers = [NodePath("Wheel"), NodePath("Wheel2"), NodePath("Wheel3"), NodePath("Wheel4")]
+vehicle = NodePath("Car")
+slerp = true
+rotate = true
+
+[node name="Wheel" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.931201, 0, -1.7236)
+
+[node name="Wheel2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.921627, 0, -1.7236)
+
+[node name="Wheel3" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.921627, 0, 1.90002)
+
+[node name="Wheel4" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.931201, 0, 1.90002)
+
+[node name="Car" parent="." instance=ExtResource("2_vtwx8")]
